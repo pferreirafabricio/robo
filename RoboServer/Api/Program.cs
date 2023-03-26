@@ -1,5 +1,7 @@
+using Application.Repositories;
 using Application.Services.Implementation;
 using Application.Services.Interfaces;
+using Core.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<RoboDbContext>(
     options => options.UseInMemoryDatabase("RoboDb")
 );
 
+builder.Services.AddScoped<IRobotRepository, RobotRepository>();
 builder.Services.AddScoped<IRobotService, RobotService>();
 
 var app = builder.Build();

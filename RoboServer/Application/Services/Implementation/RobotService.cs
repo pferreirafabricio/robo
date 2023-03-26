@@ -3,22 +3,23 @@ using Application.InputModels;
 using Application.Services.Interfaces;
 using Application.ViewModels;
 using Core.Entities;
+using Core.Repositories;
 using Infrastructure.Persistence;
 
 namespace Application.Services.Implementation;
 
 public class RobotService : IRobotService
 {
-    private readonly RoboDbContext _dbContext;
+    private readonly IRobotRepository _repository;
 
-    public RobotService(RoboDbContext dbContext)
+    public RobotService(IRobotRepository dbContext)
     {
-        _dbContext = dbContext;
+        _repository = dbContext;
     }
 
     public Robot GetById(int id)
     {
-        return _dbContext.Robots.SingleOrDefault(x => x.Id == id);
+        return _repository.GetById(id);
     }
 
     public RobotArmsViewModel GetArms(int id)
@@ -49,7 +50,7 @@ public class RobotService : IRobotService
             return;
 
         robot.InclineHead(inputModel.Inclination);
-        _dbContext.SaveChanges();
+        _repository.Save();
     }
 
     public void RotateHead(RotateHeadInputModel inputModel)
@@ -60,7 +61,7 @@ public class RobotService : IRobotService
             return;
 
         robot.RotateHead(inputModel.Rotation);
-        _dbContext.SaveChanges();
+        _repository.Save();
     }
 
     public void ChangeElbowState(RotateArmElbowInputModel inputModel)
@@ -72,7 +73,7 @@ public class RobotService : IRobotService
 
         robot.ChangeElbowState(inputModel.ArmName, inputModel.State);
 
-        _dbContext.SaveChanges();
+        _repository.Save();
     }
 
     public void RotateArmWrist(RotateArmWristInputModel inputModel)
@@ -84,16 +85,8 @@ public class RobotService : IRobotService
 
         robot.RotateWrist(inputModel.ArmName, inputModel.State);
 
-        _dbContext.SaveChanges();
+        _repository.Save();
     }
 
-    public int Create()
-    {
-        var robot = new Robot();
-
-        _dbContext.Robots.Add(robot);
-        _dbContext.SaveChanges();
-
-        return robot.Id;
-    }
+    public int Create() => _repository.Create();
 }
