@@ -1,3 +1,4 @@
+using Core.Constants;
 using Core.Enums;
 using Core.Utilities;
 
@@ -38,15 +39,18 @@ public class Robot
 
     public void RotateWrist(string armName, WristState newWristState)
     {
-        if (!Utility.CanChangeState(RightWrist, newWristState))
+        var elbowToUseInCompare = (armName == ArmNames.LEFT ? LeftElbow : RightElbow);
+        var wristToUseInCompare = (armName == ArmNames.LEFT ? LeftWrist : RightWrist);
+
+        if (!Utility.CanChangeState(wristToUseInCompare, newWristState))
             throw new Exception("Can't skip states changing writs rotation");
 
-        if (RightElbow != ElbowState.StronglyContracted)
+        if (elbowToUseInCompare != ElbowState.StronglyContracted)
             throw new Exception("Can't rotate the wrist if the elbow isn't strongly contracted");
 
-        if (armName == "left")
+        if (armName == ArmNames.LEFT)
             LeftWrist = newWristState;
-        else if (armName == "right")
+        else if (armName == ArmNames.RIGHT)
             RightWrist = newWristState;
         else
             throw new ArgumentException("Invalid arm name");
@@ -54,12 +58,14 @@ public class Robot
 
     public void ChangeElbowState(string armName, ElbowState newElbowState)
     {
-        if (!Utility.CanChangeState(RightElbow, newElbowState))
+        var elbowToUseInCompare = (armName == ArmNames.LEFT ? LeftElbow : RightElbow);
+
+        if (!Utility.CanChangeState(elbowToUseInCompare, newElbowState))
             throw new Exception("Can't skip states changing elbow state");
 
-        if (armName == "left")
+        if (armName == ArmNames.LEFT)
             LeftElbow = newElbowState;
-        else if (armName == "right")
+        else if (armName == ArmNames.RIGHT)
             RightElbow = newElbowState;
         else
             throw new ArgumentException("Invalid arm name");

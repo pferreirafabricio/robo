@@ -17,10 +17,7 @@ public class RobotService : IRobotService
         _repository = dbContext;
     }
 
-    public Robot GetById(int id)
-    {
-        return _repository.GetById(id);
-    }
+    public Robot GetById(int id) => _repository.GetById(id);
 
     public RobotArmsViewModel GetArms(int id)
     {
