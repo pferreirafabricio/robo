@@ -1,5 +1,5 @@
 <h5 align="center">
-  <img src="https://assets.stickpng.com/images/62a22a1c443b787d58371262.png" width="250px" />
+  <img src="https://brandslogos.com/wp-content/uploads/images/large/angular-logo-1.png" width="250px" />
   <br>  
   <b>Controlling your own R.O.B.O.T</b> 🎮
 </h5>
