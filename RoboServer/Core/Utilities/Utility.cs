@@ -21,6 +21,9 @@ public static class Utility
         var currentState = Unsafe.As<TEnum, int>(ref @enum);
         var newState = Unsafe.As<TEnum, int>(ref newValue);
 
+        if (currentState == newState)
+            return true;
+
         (int Min, int Max) validStates = (currentState - 1, currentState + 1);
 
         if (newState != validStates.Min && newState != validStates.Max)

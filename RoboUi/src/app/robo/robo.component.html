@@ -1,1 +1,180 @@
-<p>robo works!</p>
+<mat-grid-list cols="12" rowHeight="400px">
+  <mat-grid-tile colspan="3">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Current State
+          <mat-chip>
+            <img
+              matChipAvatar
+              src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/512/robot-01-icon.png"
+            />
+            ID {{ robotId }}
+          </mat-chip>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          <b>Head Rotation:</b>
+          {{ headRotationDescription(robot.headRotation) }}
+        </p>
+        <p>
+          <b>Head Inclination:</b>
+          {{ headInclinationDescription(robot.headInclination) }}
+        </p>
+        <p><b>Left Elbow:</b> {{ elbowStateDescription(robot.leftElbow) }}</p>
+        <p><b>Left Wrist:</b> {{ wristStateDescription(robot.leftWrist) }}</p>
+        <p><b>Right Elbow:</b> {{ elbowStateDescription(robot.rightElbow) }}</p>
+        <p><b>Right Wrist:</b> {{ wristStateDescription(robot.rightWrist) }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button (click)="getRobot()" [disabled]="loading">
+          Reload
+        </button>
+      </mat-card-actions>
+      <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Head </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Rotation</mat-label>
+          <mat-select
+            [(value)]="robot.headRotation"
+            onchange="errorMessages.rotateHead = ''"
+          >
+            <mat-option
+              *ngFor="let rotation of headRotationValues"
+              [value]="rotation.value"
+            >
+              {{ rotation.name }}
+            </mat-option>
+          </mat-select>
+          <span class="error" *ngIf="errorMessages.rotateHead">
+            {{ errorMessages.rotateHead }}
+          </span>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="margin-left: 20px">
+          <mat-label>Inclination</mat-label>
+          <mat-select [(value)]="robot.headInclination">
+            <mat-option
+              *ngFor="let inclination of headInclinationValues"
+              [value]="inclination.value"
+            >
+              {{ inclination.name }}
+            </mat-option>
+          </mat-select>
+          <span class="error" *ngIf="errorMessages.inclineHead">
+            {{ errorMessages.inclineHead }}
+          </span>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="rotateHead()"
+          [disabled]="loading"
+        >
+          Save rotation
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="inclineHead()"
+          class="ml-20"
+          [disabled]="loading"
+        >
+          Save inclination
+        </button>
+      </mat-card-actions>
+      <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Arms </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Left elbow</mat-label>
+          <mat-select [(value)]="robot.leftElbow">
+            <mat-option *ngFor="let elbow of elbowValues" [value]="elbow.value">
+              {{ elbow.name }}
+            </mat-option>
+          </mat-select>
+          <span class="error" *ngIf="errorMessages.leftElbow">
+            {{ errorMessages.leftElbow }}
+          </span>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="margin-left: 20px">
+          <mat-label>Left wrist</mat-label>
+          <mat-select [(value)]="robot.leftWrist">
+            <mat-option *ngFor="let wrist of wristValues" [value]="wrist.value">
+              {{ wrist.name }}
+            </mat-option>
+          </mat-select>
+          <span class="error" *ngIf="errorMessages.leftWrist">
+            {{ errorMessages.leftWrist }}
+          </span>
+        </mat-form-field>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="rotateArmElbow('left'); rotateArmWrist('left')"
+          class="ml-20"
+          [disabled]="loading"
+        >
+          Save left
+        </button>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Right elbow</mat-label>
+          <mat-select [(value)]="robot.rightElbow">
+            <mat-option *ngFor="let elbow of elbowValues" [value]="elbow.value">
+              {{ elbow.name }}
+            </mat-option>
+          </mat-select>
+          <span class="error" *ngIf="errorMessages.rightElbow">
+            {{ errorMessages.rightElbow }}
+          </span>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="margin-left: 20px">
+          <mat-label>Right wrist</mat-label>
+          <mat-select [(value)]="robot.rightWrist">
+            <mat-option *ngFor="let wrist of wristValues" [value]="wrist.value">
+              {{ wrist.name }}
+            </mat-option>
+          </mat-select>
+          <span class="error" *ngIf="errorMessages.rightWrist">
+            {{ errorMessages.rightWrist }}
+          </span>
+        </mat-form-field>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="rotateArmElbow('right'); rotateArmWrist('right')"
+          class="ml-20"
+          [disabled]="loading"
+        >
+          Save right
+        </button>
+      </mat-card-content>
+      <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
