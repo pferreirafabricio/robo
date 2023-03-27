@@ -1,27 +1,29 @@
-# RoboUi
+<h5 align="center">
+  <img src="https://assets.stickpng.com/images/62a22a1c443b787d58371262.png" width="250px" />
+  <br>  
+  <b>Controlling your own R.O.B.O.T</b> 🎮
+</h5>
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-purple?style=for-the-badge&color=e23237">
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+## 🧱 This project was built with: 
+- [Angular](https://angular.io/)
+- [Angular material](https://material.angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🏄‍♂️ Quick Start
+ 1. Clone this repository `git clone https://github.com/pferreirafabricio/robo.git`;
+ 2. Enter in the project's folder: `cd RoboUi`
+ 3. Install dependencies: `npm install`
+ 4. Run the API and be happy: `ng serve` 😃
+> If you don't have the [Angular cli](https://angular.io/cli) yet run `npm install -g @angular/cli`
+ 
+## ♻ Contribute
+ 1. Fork this repository;
+ 2. Create a branch with your feature: ```git checkout -b my-feature```
+ 3. Commit your changes: ```git commit -m 'feat: My new feature'```
+ 4. Push your branch: ```git push origin my-feature```
+ 
+## 🧾	License
+This project is under the MIT license. Take a look at the [LICENSE](LICENSE) file for more details.
